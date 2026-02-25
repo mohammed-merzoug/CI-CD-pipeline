@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Validation de commande - E-Commerce{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Validation de la commande</h1>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5>1. Adresse de livraison</h5>
+                </div>
+                <div class="card-body">
+                    {% if shipping_addresses %}
+                        <form method="post">
+                            {% csrf_token %}
+                            {% for address in shipping_addresses %}
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="shipping_address" 
+                                           id="address{{ address.id }}" value="{{ address.id }}"
+                                           {% if address.is_default %}checked{% endif %}>
+                                    <label class="form-check-label" for="address{{ address.id }}">
+                                        <strong>{{ address.full_name }}</strong><br>
+                                        {{ address.address_line1 }}<br>
+                                        {% if address.address_line2 %}{{ address.address_line2 }}<br>{% endif %}
+                                        {{ address.postal_code }} {{ address.city }}<br>
+                                        {{ address.country }}<br>
+                                        <i class="bi bi-telephone"></i> {{ address.phone }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                            
+                            <div class="mb-3">
+                                {{ form.notes.label_tag }}
+                                {{ form.notes }}
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-lg">Valider la commande</button>
+                        </form>
+                    {% else %}
+                        <div class="alert alert-warning">
+                            Vous n'avez pas d'adresse de livraison enregistrée.
+                            <a href="{% url 'accounts:address_create' %}?next={{ request.path }}" class="btn btn-sm btn-primary">
+                                Ajouter une adresse
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Récapitulatif</h5>
+                </div>
+                <div class="card-body">
+                    {% for item in cart %}
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>{{ item.product.name }} x{{ item.quantity }}</span>
+                            <span>{{ item.total_price }} €</span>
+                        </div>
+                    {% endfor %}
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <strong>Total</strong>
+                        <strong class="text-primary">{{ cart.get_total_price }} €</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

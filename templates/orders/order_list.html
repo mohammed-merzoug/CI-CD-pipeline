@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Mes commandes - E-Commerce{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Mes commandes</h1>
+    
+    {% if orders %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Numéro</th>
+                        <th>Date</th>
+                        <th>Statut</th>
+                        <th>Montant</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td><strong>{{ order.order_number }}</strong></td>
+                        <td>{{ order.created_at|date:"d/m/Y" }}</td>
+                        <td>
+                            <span class="badge 
+                                {% if order.status == 'delivered' %}bg-success
+                                {% elif order.status == 'shipped' %}bg-info
+                                {% elif order.status == 'paid' %}bg-primary
+                                {% elif order.status == 'cancelled' %}bg-danger
+                                {% else %}bg-warning{% endif %}">
+                                {{ order.get_status_display }}
+                            </span>
+                        </td>
+                        <td>{{ order.total_amount }} €</td>
+                        <td>
+                            <a href="{% url 'orders:order_detail' order.order_number %}" class="btn btn-sm btn-outline-primary">
+                                Détails
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <h4>Aucune commande</h4>
+            <p>Vous n'avez pas encore passé de commande.</p>
+            <a href="{% url 'shop:product_list' %}" class="btn btn-primary">Découvrir nos produits</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

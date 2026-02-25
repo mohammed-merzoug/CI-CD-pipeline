@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Mon profil - E-Commerce{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Mon profil</h1>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Prénom</label>
+                                <input type="text" name="first_name" class="form-control" value="{{ form.first_name.initial }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Nom</label>
+                                <input type="text" name="last_name" class="form-control" value="{{ form.last_name.initial }}">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" value="{{ form.email.initial }}" required>
+                        </div>
+                        <div class="mb-3">
+                            {{ form.phone.label_tag }}
+                            {{ form.phone }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.birth_date.label_tag }}
+                            {{ form.birth_date }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                        <a href="{% url 'accounts:change_password' %}" class="btn btn-outline-secondary">Changer le mot de passe</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="list-group">
+                <a href="{% url 'accounts:profile' %}" class="list-group-item list-group-item-action active">
+                    <i class="bi bi-person"></i> Mon profil
+                </a>
+                <a href="{% url 'orders:order_list' %}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-bag"></i> Mes commandes
+                </a>
+                <a href="{% url 'accounts:address_list' %}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-geo-alt"></i> Mes adresses
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

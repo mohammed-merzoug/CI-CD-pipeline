@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}FAQ - E-Commerce{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Questions fréquentes</h1>
+    <div class="accordion" id="faqAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                    Comment passer une commande ?
+                </button>
+            </h2>
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Parcourez notre catalogue, ajoutez des produits à votre panier et suivez les étapes de checkout.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                    Quels sont les modes de paiement acceptés ?
+                </button>
+            </h2>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Nous acceptons les cartes de crédit, PayPal et autres moyens de paiement sécurisés.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

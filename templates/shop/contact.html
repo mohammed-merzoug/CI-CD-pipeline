@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact - E-Commerce{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Contactez-nous</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.name.label_tag }}
+                    {{ form.name }}
+                </div>
+                <div class="mb-3">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                </div>
+                <div class="mb-3">
+                    {{ form.subject.label_tag }}
+                    {{ form.subject }}
+                </div>
+                <div class="mb-3">
+                    {{ form.message.label_tag }}
+                    {{ form.message }}
+                </div>
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h4>Informations de contact</h4>
+            <p><i class="bi bi-envelope"></i> contact@ecommerce.fr</p>
+            <p><i class="bi bi-telephone"></i> +33 1 23 45 67 89</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
