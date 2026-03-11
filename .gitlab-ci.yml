@@ -115,8 +115,6 @@ deploy_production:
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       when: manual
-  only:
-    - main
 
 # Stop production deployment
 stop_production:
@@ -132,8 +130,8 @@ stop_production:
     name: production
     action: stop
   when: manual
-  only:
-    - main
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
 
 # Deploy to Staging (auto on develop branch)
 deploy_staging:
@@ -156,8 +154,6 @@ deploy_staging:
     on_stop: stop_staging
   rules:
     - if: '$CI_COMMIT_BRANCH == "develop"'
-  only:
-    - develop
 
 # Stop staging deployment
 stop_staging:
@@ -173,5 +169,5 @@ stop_staging:
     name: staging
     action: stop
   when: manual
-  only:
-    - develop
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
