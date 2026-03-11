@@ -96,8 +96,11 @@ build_docker_image:
 deploy_production:
   stage: deploy
   image: docker:24-cli
+  services:
+    - docker:24-dind
   variables:
     GIT_STRATEGY: none
+    DOCKER_TLS_CERTDIR: "/certs"
   before_script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
   script:
@@ -120,8 +123,11 @@ deploy_production:
 stop_production:
   stage: deploy
   image: docker:24-cli
+  services:
+    - docker:24-dind
   variables:
     GIT_STRATEGY: none
+    DOCKER_TLS_CERTDIR: "/certs"
   script:
     - docker stop ecommerce-app || true
     - docker rm ecommerce-app || true
@@ -137,8 +143,11 @@ stop_production:
 deploy_staging:
   stage: deploy
   image: docker:24-cli
+  services:
+    - docker:24-dind
   variables:
     GIT_STRATEGY: none
+    DOCKER_TLS_CERTDIR: "/certs"
   before_script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
   script:
@@ -159,8 +168,11 @@ deploy_staging:
 stop_staging:
   stage: deploy
   image: docker:24-cli
+  services:
+    - docker:24-dind
   variables:
     GIT_STRATEGY: none
+    DOCKER_TLS_CERTDIR: "/certs"
   script:
     - docker stop ecommerce-staging || true
     - docker rm ecommerce-staging || true
