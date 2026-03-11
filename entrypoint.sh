@@ -29,6 +29,18 @@ else
     echo "Database already contains $PRODUCT_COUNT products. Skipping population."
 fi
 
+# Create default superuser if it doesn't exist
+echo "Checking for admin user..."
+python manage.py shell -c "
+from django.contrib.auth import get_user_model
+User = get_user_model()
+if not User.objects.filter(username='admin').exists():
+    user = User.objects.create_superuser('admin', 'admin@example.com', 'admin123')
+    print('Default superuser created: admin / admin123')
+else:
+    print('Admin user already exists')
+" || true
+
 # Check if media files exist
 if [ ! "$(ls -A /app/media/products 2>/dev/null)" ]; then
     echo "Media folder is empty. Copying product images..."
