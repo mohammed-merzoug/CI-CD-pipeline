@@ -4,15 +4,15 @@ Application e-commerce professionnelle développée avec Django, avec un pipelin
 
 ##  Fonctionnalités principales
 
- **Catalogue de produits** - Gestion complète des produits et catégories  
- **Panier d'achat** - Système de panier avec gestion des quantités  
- **Gestion des commandes** - Suivi complet des commandes clients  
- **Authentification** - Système de comptes utilisateurs avec profils  
- **Dashboard admin** - Interface d'administration pour gérer le site  
- **Design futuriste** - Interface cyberpunk avec effets néon et glassmorphisme  
- **25 produits inclus** - Base de données pré-remplie avec images  
- **CI/CD Pipeline** - Tests et déploiement automatisés via GitLab CI  
- **Docker** - Application containerisée avec Docker & Docker Compose  
+✨ **Catalogue de produits** - Gestion complète des produits et catégories  
+🛒 **Panier d'achat** - Système de panier avec gestion des quantités  
+📦 **Gestion des commandes** - Suivi complet des commandes clients  
+👤 **Authentification** - Système de comptes utilisateurs avec profils  
+🎛️ **Dashboard admin** - Interface d'administration pour gérer le site  
+🎨 **Design futuriste** - Interface cyberpunk avec effets néon et glassmorphisme  
+📦 **25 produits inclus** - Base de données pré-remplie avec images  
+🚀 **CI/CD Pipeline** - Tests et déploiement automatisés via GitLab CI  
+🐳 **Docker** - Application containerisée avec Docker & Docker Compose  
 
 ---
 
@@ -51,9 +51,10 @@ python manage.py migrate
 
 ```bash
 python manage.py populate_db
+python manage.py link_images
 ```
 
-Cette commande crée **25 produits** répartis en **6 catégories** avec leurs images.
+Ces commandes créent **25 produits** répartis en **6 catégories** avec leurs images.
 
 ### 5. Créer un superutilisateur (optionnel)
 
@@ -84,6 +85,10 @@ docker-compose up --build
 - **Application :** http://localhost:8000
 - **Via Nginx :** http://localhost:80
 
+**Identifiants par défaut créés automatiquement :**
+- **Username:** `admin`
+- **Password:** `admin123`
+
 ### Lancer uniquement le conteneur Docker
 
 ```bash
@@ -91,32 +96,47 @@ docker build -t ecommerce-app .
 docker run -d -p 8000:8000 ecommerce-app
 ```
 
+### ✅ Ce qui est initialisé automatiquement
+
+Le conteneur Docker utilise un script `entrypoint.sh` qui :
+- ✅ Applique les migrations de base de données
+- ✅ Collecte les fichiers statiques
+- ✅ Peuple la base de données avec 25 produits (si vide)
+- ✅ Lie automatiquement les images aux produits
+- ✅ Crée un superutilisateur par défaut (`admin` / `admin123`)
+- ✅ Démarre le serveur Gunicorn
+
+**Note:** Les images des produits (25 fichiers JPG) et le CSS personnalisé sont inclus dans l'image Docker et automatiquement disponibles.
+
 ---
 
 ##  CI/CD Pipeline GitLab
 
-Le projet utilise un pipeline GitLab CI/CD automatisé tournant sur un **runner Windows local** (MOCRO).
+Le projet utilise un pipeline GitLab CI/CD **portable** basé sur Docker qui fonctionne sur n'importe quel runner GitLab.
 
 ### Stages du pipeline
 
 ```
-dependencies  test  build  deploy
+test  →  build  →  deploy
 ```
 
 | Job | Stage | Description |
 |-----|-------|-------------|
-| `install_dependencies` | dependencies | Crée le venv et installe les paquets |
-| `run_tests` | test | Vérifications Django + 31 tests unitaires |
-| `code_quality` | test | Analyse statique du code avec flake8 |
-| `build_docker_image` | build | Build et push vers le GitLab Container Registry |
-| `production_deploy` | deploy | Déploiement automatique sur `main` |
-| `staging_deploy` | deploy | Déploiement automatique sur `develop` |
+| `run_tests` | test | Vérifications Django + migrations + tests unitaires |
+| `code_quality` | test | Analyse statique du code avec flake8 (erreurs critiques) |
+| `build_docker_image` | build | Build de l'image Docker + push vers GitLab Container Registry |
+| `deploy_production` | deploy | Déploiement automatique sur `main` (port 8000) |
+| `deploy_staging` | deploy | Déploiement automatique sur `develop` (port 8001) |
+| `stop_production` | deploy | Arrêt manuel de l'environnement production |
+| `stop_staging` | deploy | Arrêt manuel de l'environnement staging |
 
-### Configuration du runner
+### Architecture du pipeline
 
-- **Runner :** MOCRO (Windows, shell executor PowerShell)
-- **Tag :** `windows`
-- **Fichier de config :** `C:\GitLab-Runner\config.toml`
+- **Image de base :** `python:3.11-slim` (jobs de test)
+- **Build Docker :** `docker:24-dind` avec Docker-in-Docker
+- **Deploy :** `docker:24-cli` avec service Docker-in-Docker
+- **Portable :** Aucune dépendance à une machine spécifique
+- **Automatisé :** Déploiement automatique après succès des tests
 
 ### Déclencher le pipeline
 
@@ -197,27 +217,25 @@ L'application utilise un **thème cyberpunk futuriste** avec :
 | **Langage** | Python | 3.11 |
 | **Base de données** | SQLite | 3.x |
 | **Frontend** | Bootstrap | 5.3.0 |
+| **Server WSGI** | Gunicorn | 21.2.0 |
+| **Conteneurisation** | Docker | 24.x |
+| **CI/CD** | GitLab CI | - |
 | **Design** | CSS Custom Cyberpunk | - |
-| **Fonts** | Google Fonts (Poppins) | -
-##  Stack technique
+| **Fonts** | Google Fonts (Poppins) | - |
 
-| Composant | Technologie | Version |
-|-----------|-------------|---------|
-| **Backend** | Django | 4.2.7 |
-| **Langage** | Python | 3.11 |
-| **Base de données** | SQLite | 3.x |
-| **Frontend** | Bootstrap | 5.3.0 |
-|   management/
-      commands/
-        populate_db.py    # Commande pour peupler la DB
-        link_images.py    # Commande pour lier les images
-  ecommerce_project/      # Configuration Django
-  templates/              # Templates HTML
-  static/
-    css/
-      style.css           # Theme cyberpunk futuriste
-  media/
-    products/             # Images des produits (25 images incluses)
+---
+
+##  Base de données
+
+**6 catégories de produits :**
+- 📱 Électronique (iPhone, MacBook, iPad, AirPods, etc.)
+- 👕 Vêtements (T-shirts, jeans, robes, vestes, sneakers)
+- 🏠 Maison & Jardin (meubles, lampe, set de jardin)
+- ⚽ Sports & Loisirs (haltères, vélo VTT, ballon, tapis de yoga)
+- 📚 Livres (Clean Code, Le Petit Prince, L'Art de la Guerre)
+- 💄 Beauté & Santé (crème bio, parfum, kit manucure, brosse)
+
+**25 produits avec descriptions, prix, stock et images**
 
 ---
 
@@ -226,24 +244,29 @@ L'application utilise un **thème cyberpunk futuriste** avec :
 ```
 ci-cd-pipeline/
   accounts/               # Gestion des utilisateurs
-  cart/                   # Panier d achat
+  cart/                   # Panier d'achat
   dashboard/              # Tableau de bord admin
   orders/                 # Gestion des commandes
   shop/                   # Boutique en ligne
+    management/
+      commands/
+        populate_db.py    # Commande pour peupler la DB
+        link_images.py    # Commande pour lier les images
   ecommerce_project/      # Configuration Django
-  templates/        populate_db` | **Peupler la DB avec 25 produits** |
-| `python manage.py link_images` | **Lier les images aux produits** |
-| `python manage.py       # Templates HTML
-  static/                 # Fichiers statiques
-  media/                  # Fichiers uploades
+  templates/              # Templates HTML
+  static/
+    css/
+      style.css           # Thème cyberpunk futuriste
+  media/
+    products/             # Images des produits (25 images incluses)
   .gitlab-ci.yml          # Pipeline CI/CD GitLab
   Dockerfile              # Image Docker
+  entrypoint.sh           # Script d'initialisation du conteneur
   docker-compose.yml      # Stack Docker Compose (web + nginx)
   .dockerignore           # Exclusions Docker
-  deploy.ps1              # Script de deploiement PowerShell
-  requirements.txt        # Dependances Python
+  requirements.txt        # Dépendances Python
   manage.py               # Commandes Django
-  db.sqlite3              # Base de donnees SQLite
+  db.sqlite3              # Base de données SQLite
 ```
 
 ---
@@ -256,30 +279,25 @@ ci-cd-pipeline/
 | `python manage.py migrate` | Appliquer les migrations |
 | `python manage.py makemigrations` | Créer de nouvelles migrations |
 | `python manage.py createsuperuser` | Créer un administrateur |
+| `python manage.py populate_db` | Peupler la DB avec 25 produits |
+| `python manage.py link_images` | Lier les images aux produits |
 | `python manage.py test` | Lancer les tests unitaires |
 | `python manage.py collectstatic` | Collecter les fichiers statiques |
 | `docker-compose up --build` | Lancer la stack Docker |
+| `docker exec -it ecommerce-web bash` | Accéder au shell du conteneur |
 
 ---
 
-##  Sécurité
+##  Auteur
 
-**Implémenté :**
--  Protection CSRF sur tous les formulaires
--  Authentification requise pour les zones sensibles
--  Validation des formulaires côté serveur
--  Gestion sécurisée des mots de passe (hashing)
--  Séparation des permissions admin/utilisateur
+Mohammed Merzoug  
+GitLab: [@mohammed-merzoug](https://gitlab.com/mohammed-merzoug)
 
-**À Contenu de la base de données
+---
 
-### Catégories (6)
--  **Électronique** - Smartphones, tablettes, ordinateurs
--  **Vêtements** - Mode homme, femme et enfant
--  **Maison & Jardin** - Meubles, décoration, équipement
--  **Sports & Loisirs** - Équipements sportifs
--  **Livres** - Romans, guides techniques
--  **Beauté & Santé** - Cosmétiques et soins
+##  Licence
+
+Ce projet est développé à des fins éducatives et de démonstration.
 
 ### Produits (25)
 Tous les produits incluent :
