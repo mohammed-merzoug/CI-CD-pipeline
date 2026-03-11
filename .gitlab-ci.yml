@@ -42,7 +42,7 @@ run_tests:
     - python manage.py migrate
     - echo "Running unit tests..."
     - python manage.py test --verbosity=2
-    - echo "✅ All tests passed successfully"
+    - echo "All tests passed successfully"
   artifacts:
     when: always
     reports:
@@ -62,7 +62,7 @@ code_quality:
     - flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --exclude=migrations,__pycache__,venv,.venv
     - echo "Running full flake8 check (warnings allowed)..."
     - flake8 . --count --max-line-length=127 --statistics --exclude=migrations,__pycache__,venv,.venv || true
-    - echo "✅ Code quality check complete"
+    - echo "Code quality check complete"
   allow_failure: true
 
 # STAGE 2 - Build Docker Image
@@ -83,7 +83,7 @@ build_docker_image:
     - echo "Pushing to GitLab Container Registry..."
     - docker push $DOCKER_IMAGE
     - docker push "${CI_REGISTRY_IMAGE}:latest"
-    - echo "✅ Docker image built and pushed: ${CI_REGISTRY_IMAGE}:latest"
+    - echo "Docker image built and pushed successfully"
   rules:
     - if: '$CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "master" || $CI_COMMIT_BRANCH == "develop"'
   retry:
@@ -101,13 +101,13 @@ deploy_production:
   before_script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
   script:
-    - echo "🚀 Deploying to production..."
+    - echo "Deploying to production..."
     - echo "Branch $CI_COMMIT_BRANCH - Commit $CI_COMMIT_SHA"
     - docker pull "${CI_REGISTRY_IMAGE}:latest"
     - docker stop ecommerce-app || true
     - docker rm ecommerce-app || true
     - docker run -d --name ecommerce-app -p 8000:8000 --restart unless-stopped "${CI_REGISTRY_IMAGE}:latest"
-    - echo "✅ Deployment successful - App running on port 8000"
+    - echo "Deployment successful - App running on port 8000"
   environment:
     name: production
     url: http://your-domain.com
@@ -127,7 +127,7 @@ stop_production:
   script:
     - docker stop ecommerce-app || true
     - docker rm ecommerce-app || true
-    - echo "✅ Production deployment stopped"
+    - echo "Production deployment stopped"
   environment:
     name: production
     action: stop
@@ -144,12 +144,12 @@ deploy_staging:
   before_script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
   script:
-    - echo "🚀 Deploying to staging..."
+    - echo "Deploying to staging..."
     - docker pull "${CI_REGISTRY_IMAGE}:$CI_COMMIT_REF_SLUG"
     - docker stop ecommerce-staging || true
     - docker rm ecommerce-staging || true
     - docker run -d --name ecommerce-staging -p 8001:8000 --restart unless-stopped "${CI_REGISTRY_IMAGE}:$CI_COMMIT_REF_SLUG"
-    - echo "✅ Staging deployment successful - App running on port 8001"
+    - echo "Staging deployment successful - App running on port 8001"
   environment:
     name: staging
     url: http://staging.your-domain.com
@@ -168,7 +168,7 @@ stop_staging:
   script:
     - docker stop ecommerce-staging || true
     - docker rm ecommerce-staging || true
-    - echo "✅ Staging deployment stopped"
+    - echo "Staging deployment stopped"
   environment:
     name: staging
     action: stop
