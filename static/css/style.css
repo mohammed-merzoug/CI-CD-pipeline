@@ -1,0 +1,850 @@
+/* ============================================
+   FUTURISTIC E-COMMERCE - CYBERPUNK THEME
+   Dynamic & Neon Powered Experience
+   ============================================ */
+
+/* General Styles & Futuristic Base */
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --neon-cyan: #00f3ff;
+    --neon-pink: #ff006e;
+    --neon-purple: #b300ff;
+    --neon-green: #39ff14;
+    --dark-bg: #0a0e27;
+    --card-bg: #1a1f3a;
+    --glow-cyan: 0 0 20px rgba(0, 243, 255, 0.5);
+    --glow-pink: 0 0 20px rgba(255, 0, 110, 0.5);
+    --glow-purple: 0 0 20px rgba(179, 0, 255, 0.5);
+}
+
+body {
+    background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #e0e0e0;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Animated Background Grid */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 20s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes gridMove {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(50px); }
+}
+
+main {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+/* Ensure all headings are visible */
+h1, h2, h3, h4, h5, h6 {
+    color: #fff;
+}
+
+h2 {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Futuristic Navigation */
+.navbar {
+    background: rgba(26, 31, 58, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--neon-cyan);
+    box-shadow: 0 5px 30px rgba(0, 243, 255, 0.3);
+    position: relative;
+    z-index: 1030;
+}
+
+/* Dropdown Menu - Futuristic Style */
+.dropdown-menu {
+    background: rgba(26, 31, 58, 0.98) !important;
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--neon-cyan);
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 243, 255, 0.4),
+                0 0 20px rgba(0, 243, 255, 0.2);
+    padding: 0.5rem;
+    margin-top: 0.5rem !important;
+    z-index: 1040;
+    overflow: hidden;
+}
+
+.dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.05), rgba(179, 0, 255, 0.05));
+    pointer-events: none;
+}
+
+.dropdown-item {
+    color: #e0e0e0 !important;
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    font-weight: 500;
+}
+
+.dropdown-item:hover {
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(179, 0, 255, 0.2)) !important;
+    color: var(--neon-cyan) !important;
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+    transform: translateX(5px);
+    border-left: 3px solid var(--neon-cyan);
+}
+
+.dropdown-divider {
+    border-top: 1px solid rgba(0, 243, 255, 0.3);
+    margin: 0.5rem 0;
+    box-shadow: 0 0 5px rgba(0, 243, 255, 0.2);
+}
+
+.dropdown-toggle::after {
+    border-top-color: var(--neon-cyan);
+}
+
+/* Ensure dropdown appears above navbar border */
+.nav-item.dropdown {
+    position: relative;
+    z-index: 1050;
+}
+
+.navbar-brand {
+    font-weight: 900;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--neon-cyan) !important;
+    text-shadow: var(--glow-cyan);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan); }
+    50% { text-shadow: 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan), 0 0 40px var(--neon-cyan); }
+}
+
+.navbar-nav .nav-link {
+    font-weight: 600;
+    transition: all 0.4s ease;
+    color: #e0e0e0 !important;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+    transition: all 0.4s ease;
+    transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--neon-cyan) !important;
+    text-shadow: var(--glow-cyan);
+    transform: translateY(-3px);
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+}
+
+/* Navbar Icons */
+.navbar .nav-link i {
+    color: var(--neon-cyan);
+    margin-right: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.navbar .nav-link:hover i {
+    text-shadow: 0 0 15px var(--neon-cyan);
+    transform: scale(1.1);
+}
+
+/* Futuristic Cards with Glassmorphism */
+.card {
+    background: rgba(26, 31, 58, 0.8);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(0, 243, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 243, 255, 0.1),
+                inset 0 0 20px rgba(0, 243, 255, 0.05);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-title {
+    color: #fff !important;
+    font-weight: 700;
+}
+
+.card-text {
+    color: #adb5bd !important;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(0, 243, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    animation: cardShine 3s linear infinite;
+}
+
+@keyframes cardShine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.card:hover {
+    transform: translateY(-15px) scale(1.03);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 15px 50px rgba(0, 243, 255, 0.4),
+                0 0 30px rgba(255, 0, 110, 0.2),
+                inset 0 0 30px rgba(0, 243, 255, 0.1);
+}
+
+.card-img-top {
+    height: 250px;
+    object-fit: cover;
+    filter: brightness(0.9) contrast(1.1);
+    transition: all 0.5s ease;
+}
+
+.card:hover .card-img-top {
+    filter: brightness(1.1) contrast(1.2) saturate(1.2);
+    transform: scale(1.1);
+}
+
+/* Products - Neon Styling */
+.product-card {
+    margin-bottom: 2rem;
+}
+
+.product-price {
+    font-size: 1.8rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    filter: drop-shadow(0 0 10px rgba(0, 243, 255, 0.5));
+}
+
+.product-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 2;
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+    border: none;
+    box-shadow: var(--glow-pink);
+    animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); box-shadow: 0 0 30px rgba(255, 0, 110, 0.8); }
+}
+
+/* Futuristic Buttons with Neon Glow */
+.btn {
+    border-radius: 50px;
+    padding: 0.7rem 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+    border: 2px solid var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 40px rgba(0, 243, 255, 0.6),
+                0 0 30px rgba(179, 0, 255, 0.4);
+    background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--neon-green), #00cc99);
+    border: 2px solid var(--neon-green);
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--neon-pink), #cc0066);
+    border: 2px solid var(--neon-pink);
+    box-shadow: 0 0 20px rgba(255, 0, 110, 0.4);
+}
+
+.btn-outline-secondary {
+    background: transparent;
+    border: 2px solid rgba(0, 243, 255, 0.5);
+    color: var(--neon-cyan);
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+}
+
+.btn-outline-secondary:hover {
+    background: rgba(0, 243, 255, 0.1);
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+}
+
+.btn-outline-primary {
+    background: transparent;
+    border: 2px solid rgba(0, 243, 255, 0.5);
+    color: var(--neon-cyan);
+}
+
+.btn-outline-primary:hover {
+    background: var(--neon-cyan);
+    color: #0a0e27;
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
+}
+
+/* Footer - Cyberpunk Style */
+footer {
+    background: rgba(10, 14, 39, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 2px solid var(--neon-pink);
+    color: #e0e0e0;
+    padding: 2rem 0;
+    margin-top: auto;
+    box-shadow: 0 -5px 30px rgba(255, 0, 110, 0.3);
+}
+
+footer a {
+    color: var(--neon-cyan);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+footer a:hover {
+    color: var(--neon-pink);
+    text-shadow: var(--glow-pink);
+    transform: translateX(5px);
+}
+
+/* Futuristic Forms */
+.form-control, .form-select, input[type="text"], input[type="email"], 
+input[type="password"], input[type="tel"], input[type="date"], 
+input[type="number"], input[type="url"], textarea, select {
+    border-radius: 10px;
+    border: 2px solid rgba(0, 243, 255, 0.3);
+    background: rgba(26, 31, 58, 0.6);
+    backdrop-filter: blur(10px);
+    color: #e0e0e0;
+    padding: 0.9rem 1.2rem;
+    transition: all 0.4s ease;
+}
+
+.form-control:focus, .form-select:focus, input:focus, textarea:focus, select:focus {
+    border-color: var(--neon-cyan);
+    background: rgba(26, 31, 58, 0.9);
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.4),
+                inset 0 0 15px rgba(0, 243, 255, 0.1);
+    color: #fff;
+    outline: none;
+}
+
+.form-control::placeholder, input::placeholder, textarea::placeholder {
+    color: rgba(224, 224, 224, 0.5);
+}
+
+/* Form Labels */
+.form-label, label {
+    color: var(--neon-cyan);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Date Input Specific Styling */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) brightness(1.5);
+    cursor: pointer;
+}
+
+input[type="date"]::-webkit-datetime-edit {
+    color: #e0e0e0;
+}
+
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+    color: #e0e0e0;
+}
+
+/* Cart - Holographic Effect */
+.cart-item {
+    background: rgba(26, 31, 58, 0.8);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(0, 243, 255, 0.3);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 5px 25px rgba(0, 243, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.cart-item:hover {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 8px 35px rgba(0, 243, 255, 0.4);
+    transform: translateX(10px);
+}
+
+.cart-total {
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(179, 0, 255, 0.2));
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--neon-cyan);
+    color: #fff;
+    border-radius: 15px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px rgba(0, 243, 255, 0.3);
+}
+
+/* Tables - Data Stream Look */
+.table {
+    background: rgba(26, 31, 58, 0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 30px rgba(0, 243, 255, 0.2);
+    color: #e0e0e0;
+}
+
+.table thead {
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.3), rgba(179, 0, 255, 0.3));
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 2px solid var(--neon-cyan);
+}
+
+.table tbody tr {
+    border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background: rgba(0, 243, 255, 0.1);
+    transform: scale(1.01);
+}
+
+/* Alerts - Holographic */
+.alert {
+    border: 2px solid;
+    border-radius: 15px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+    font-weight: 600;
+}
+
+.alert-success {
+    background: rgba(57, 255, 20, 0.1);
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+}
+
+.alert-danger {
+    background: rgba(255, 0, 110, 0.1);
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
+}
+
+/* Pagination - Tech Style */
+.pagination {
+    margin-top: 3rem;
+}
+
+.page-link {
+    background: rgba(26, 31, 58, 0.8);
+    border: 2px solid rgba(0, 243, 255, 0.3);
+    color: var(--neon-cyan);
+    margin: 0 5px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.page-link:hover {
+    background: var(--neon-cyan);
+    color: #0a0e27;
+    border-color: var(--neon-cyan);
+    box-shadow: var(--glow-cyan);
+    transform: scale(1.1);
+}
+
+.page-item.active .page-link {
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+    border-color: var(--neon-cyan);
+    box-shadow: var(--glow-cyan);
+}
+
+/* Product Detail - Enhanced */
+.product-detail-image {
+    border-radius: 20px;
+    border: 3px solid rgba(0, 243, 255, 0.5);
+    box-shadow: 0 10px 50px rgba(0, 243, 255, 0.4);
+    filter: brightness(1.05);
+}
+
+.product-info {
+    background: rgba(26, 31, 58, 0.8);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(0, 243, 255, 0.3);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 50px rgba(0, 243, 255, 0.2);
+}
+
+/* Dashboard - Command Center */
+.dashboard-card {
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(179, 0, 255, 0.2));
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--neon-cyan);
+    color: #fff;
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 40px rgba(0, 243, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    animation: dashboardShine 3s linear infinite;
+}
+
+@keyframes dashboardShine {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.dashboard-card h3 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 0;
+    text-shadow: 0 0 20px var(--neon-cyan);
+}
+
+.dashboard-card p {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Badges - Neon Labels */
+.badge {
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 2px solid;
+}
+
+.badge-primary {
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+    border-color: var(--neon-cyan);
+    box-shadow: var(--glow-cyan);
+}
+
+.badge-success {
+    background: linear-gradient(135deg, var(--neon-green), #00cc99);
+    border-color: var(--neon-green);
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+}
+
+.badge-danger {
+    background: linear-gradient(135deg, var(--neon-pink), #cc0066);
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 15px rgba(255, 0, 110, 0.5);
+}
+
+/* Navbar Badge - Small Cart Counter */
+.navbar .badge {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+    border-radius: 50%;
+    margin-left: 0.25rem;
+}
+
+/* Hero Section - Epic Entrance */
+.hero-section {
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.3), rgba(179, 0, 255, 0.3));
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--neon-cyan);
+    color: #fff;
+    padding: 5rem 0;
+    border-radius: 20px;
+    margin-bottom: 4rem;
+    box-shadow: 0 15px 60px rgba(0, 243, 255, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: heroSweep 3s ease-in-out infinite;
+}
+
+@keyframes heroSweep {
+    0% { left: -100%; }
+    50% { left: 100%; }
+    100% { left: 100%; }
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 0 0 30px var(--neon-cyan);
+}
+
+/* Category Cards - Portal Effect */
+.category-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 2px solid rgba(0, 243, 255, 0.3);
+    box-shadow: 0 8px 35px rgba(0, 243, 255, 0.2);
+}
+
+.category-card i, 
+.card-body i {
+    color: var(--neon-cyan);
+    text-shadow: var(--glow-cyan);
+    transition: all 0.3s ease;
+}
+
+.category-card:hover i,
+.card-body:hover i {
+    color: var(--neon-pink);
+    text-shadow: var(--glow-pink);
+    transform: scale(1.2);
+}
+
+.category-card img {
+    transition: all 0.5s ease;
+    filter: brightness(0.8);
+}
+
+.category-card:hover img {
+    transform: scale(1.2) rotate(2deg);
+    filter: brightness(1.1) saturate(1.3);
+}
+
+.category-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 243, 255, 0.8), transparent);
+    padding: 2rem;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.2rem;
+    }
+    
+    .card-img-top {
+        height: 200px;
+    }
+    
+    .product-price {
+        font-size: 1.4rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+}
+
+/* Advanced Animations */
+@keyframes glitch {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+}
+
+@keyframes neonFlicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.glitch-effect:hover {
+    animation: glitch 0.3s ease-in-out;
+}
+
+.float-effect {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* List Groups - Futuristic Sidebar */
+.list-group-item {
+    background: rgba(26, 31, 58, 0.6);
+    border: 2px solid rgba(0, 243, 255, 0.3);
+    color: #e0e0e0;
+    transition: all 0.3s ease;
+    margin-bottom: 0.5rem;
+    border-radius: 10px;
+}
+
+.list-group-item:hover {
+    background: rgba(0, 243, 255, 0.1);
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+    transform: translateX(10px);
+}
+
+.list-group-item.active {
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.3), rgba(179, 0, 255, 0.3));
+    border-color: var(--neon-cyan);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+}
+
+.list-group-item i {
+    margin-right: 0.5rem;
+    color: var(--neon-cyan);
+}
+
+.list-group-item.active i {
+    color: #fff;
+}
+
+/* Utilities */
+.text-gradient {
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink), var(--neon-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+}
+
+.shadow-custom {
+    box-shadow: 0 10px 50px rgba(0, 243, 255, 0.3) !important;
+}
+
+.neon-border {
+    border: 2px solid var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark-bg);
+    border-left: 2px solid rgba(0, 243, 255, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple));
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--neon-pink), var(--neon-cyan));
+}
