@@ -9,7 +9,8 @@ Application e-commerce professionnelle développée avec Django, avec un pipelin
  **Gestion des commandes** - Suivi complet des commandes clients  
  **Authentification** - Système de comptes utilisateurs avec profils  
  **Dashboard admin** - Interface d'administration pour gérer le site  
- **Responsive design** - Interface moderne avec Bootstrap 5  
+ **Design futuriste** - Interface cyberpunk avec effets néon et glassmorphisme  
+ **25 produits inclus** - Base de données pré-remplie avec images  
  **CI/CD Pipeline** - Tests et déploiement automatisés via GitLab CI  
  **Docker** - Application containerisée avec Docker & Docker Compose  
 
@@ -46,13 +47,21 @@ source .venv/bin/activate
 python manage.py migrate
 ```
 
-### 4. Créer un superutilisateur (optionnel)
+### 4. Peupler la base de données (recommandé)
+
+```bash
+python manage.py populate_db
+```
+
+Cette commande crée **25 produits** répartis en **6 catégories** avec leurs images.
+
+### 5. Créer un superutilisateur (optionnel)
 
 ```bash
 python manage.py createsuperuser
 ```
 
-### 5. Lancer le serveur
+### 6. Lancer le serveur
 
 ```bash
 python manage.py runserver
@@ -166,11 +175,17 @@ python manage.py test --verbosity=2
 ###  Orders (Commandes)
 - Création et suivi des commandes
 - Historique et statut des commandes
+Design & Interface
 
-###  Dashboard (Tableau de bord admin)
-- CRUD produits et catégories
-- Liste commandes et utilisateurs
-- Accès réservé aux administrateurs
+L'application utilise un **thème cyberpunk futuriste** avec :
+
+-  **Palette néon** : Cyan, Rose, Violet et Vert néon
+-  **Glassmorphisme** : Cartes transparentes avec effet de flou
+-  **Animations dynamiques** : Effets de survol, brillance et pulsation
+-  **Grille animée** : Fond avec grille cyberpunk en mouvement
+-  **Bordures lumineuses** : Contours néon avec effets de lueur
+-  **Dégradés** : Boutons et textes avec dégradés cyan-violet
+-  **Responsive** : Design adaptatif mobile-first
 
 ---
 
@@ -182,10 +197,27 @@ python manage.py test --verbosity=2
 | **Langage** | Python | 3.11 |
 | **Base de données** | SQLite | 3.x |
 | **Frontend** | Bootstrap | 5.3.0 |
-| **Serveur WSGI** | Gunicorn | 21.2.0 |
-| **Proxy inverse** | Nginx | latest |
-| **Conteneurisation** | Docker | - |
-| **CI/CD** | GitLab CI | - |
+| **Design** | CSS Custom Cyberpunk | - |
+| **Fonts** | Google Fonts (Poppins) | -
+##  Stack technique
+
+| Composant | Technologie | Version |
+|-----------|-------------|---------|
+| **Backend** | Django | 4.2.7 |
+| **Langage** | Python | 3.11 |
+| **Base de données** | SQLite | 3.x |
+| **Frontend** | Bootstrap | 5.3.0 |
+|   management/
+      commands/
+        populate_db.py    # Commande pour peupler la DB
+        link_images.py    # Commande pour lier les images
+  ecommerce_project/      # Configuration Django
+  templates/              # Templates HTML
+  static/
+    css/
+      style.css           # Theme cyberpunk futuriste
+  media/
+    products/             # Images des produits (25 images incluses)
 
 ---
 
@@ -199,7 +231,9 @@ ci-cd-pipeline/
   orders/                 # Gestion des commandes
   shop/                   # Boutique en ligne
   ecommerce_project/      # Configuration Django
-  templates/              # Templates HTML
+  templates/        populate_db` | **Peupler la DB avec 25 produits** |
+| `python manage.py link_images` | **Lier les images aux produits** |
+| `python manage.py       # Templates HTML
   static/                 # Fichiers statiques
   media/                  # Fichiers uploades
   .gitlab-ci.yml          # Pipeline CI/CD GitLab
@@ -237,12 +271,25 @@ ci-cd-pipeline/
 -  Gestion sécurisée des mots de passe (hashing)
 -  Séparation des permissions admin/utilisateur
 
-**À configurer pour la production :**
--  `DEBUG = False`
--  `ALLOWED_HOSTS` restreint aux domaines autorisés
--  Migrer vers PostgreSQL ou MySQL
--  Activer HTTPS / TLS
--  Utiliser des variables d environnement pour les secrets
+**À Contenu de la base de données
+
+### Catégories (6)
+-  **Électronique** - Smartphones, tablettes, ordinateurs
+-  **Vêtements** - Mode homme, femme et enfant
+-  **Maison & Jardin** - Meubles, décoration, équipement
+-  **Sports & Loisirs** - Équipements sportifs
+-  **Livres** - Romans, guides techniques
+-  **Beauté & Santé** - Cosmétiques et soins
+
+### Produits (25)
+Tous les produits incluent :
+- Images haute qualité dans `media/products/`
+- Descriptions détaillées
+- Prix réalistes
+- Stock disponible
+- Certains marqués "mis en avant"
+
+**Exemples :** iPhone 15 Pro, MacBook Air M2, Vélo VTT, Clean Code, Parfum Élégance, etc.
 
 ---
 
@@ -252,12 +299,22 @@ ci-cd-pipeline/
 # Développement local
 pip install -r requirements.txt
 python manage.py migrate
-python manage.py createsuperuser
+python manage.py populate_db          # Ajouter les 25 produits
+python manage.py createsuperuser      # Optionnel
 python manage.py runserver
 
 # Docker
 docker-compose up --build
 
+# Tests
+python manage.py test --verbosity=2
+```
+
+---
+
+** Application e-commerce futuriste complète avec CI/CD ! **
+
+ **Design Cyberpunk** |  **25 Produits** |  **Panier** |  **Command
 # Tests
 python manage.py test --verbosity=2
 ```

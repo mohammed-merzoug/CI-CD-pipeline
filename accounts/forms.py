@@ -35,7 +35,8 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ['phone', 'birth_date']
         widgets = {
-            'birth_date': forms.DateInput(attrs={'type': 'date'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control', 'type': 'tel'}),
+            'birth_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
 
     def __init__(self, *args, **kwargs):
